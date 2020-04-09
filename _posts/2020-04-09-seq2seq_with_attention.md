@@ -25,7 +25,7 @@ encoder把input sequence里的items逐个编译，得到一个向量(context)，
 context是一个向量(an array of numbers)，encoder和decoder都是RNN。
 
 <div align=center>
-<img src="assets/2020-04-09-seq2seq_with_attention-e9a89c9d.png" >
+<img src="assets/2020-04-09-seq2seq_with_attention-e9a89c9d.PNG" >
 </div>
 
 在搭建模型时，你可以设定context的尺寸，它就是encoder RNN的hidden units的个数。以上的context的可视化展示了一个尺寸为4的向量，实际应用中尺寸一般是256,512,1024。
