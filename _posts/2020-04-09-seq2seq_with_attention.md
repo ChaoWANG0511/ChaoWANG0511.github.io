@@ -33,7 +33,9 @@ context是一个向量(an array of numbers)，encoder和decoder都是RNN。
 
 ![](assets/2020-04-09-seq2seq_with_attention-f789c3b7.png)
 
-![image](https://github.com/ChaoWANG0511/ChaoWANG0511.github.io/blob/master/_posts/assets/2020-04-09-seq2seq_with_attention-e7f55fd4.png)
+
+
+![ijiangtao](https://ipictures.github.io/me/phonephoto/ijiangtao201902172323.jpg)
 
 可用预训练的embeddings或在我们的数据集上训练出自己的embedding。Embedding向量一般尺寸200或300，以上可视化为尺寸4。
 
