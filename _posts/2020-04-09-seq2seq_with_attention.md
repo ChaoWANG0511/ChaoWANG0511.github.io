@@ -24,15 +24,16 @@ encoder把input sequence里的items逐个编译，得到一个向量(context)，
 
 context是一个向量(an array of numbers)，encoder和decoder都是RNN。
 
+
 <div align=center>
-<img src="assets/2020-04-09-seq2seq_with_attention-e9a89c9d.PNG" >
+<img src="https://github.com/ChaoWANG0511/ChaoWANG0511.github.io/blob/master/_posts/assets/2020-04-09-seq2seq_with_attention-e9a89c9d.PNG" >
 </div>
 
 在搭建模型时，你可以设定context的尺寸，它就是encoder RNN的hidden units的个数。以上的context的可视化展示了一个尺寸为4的向量，实际应用中尺寸一般是256,512,1024。
 
 通过设计，一个RNN每个时间步取两个输入：一个input（encoder情况下是input sequence中的一个word）和一个hidden state。其中的word需要表示为一个向量，通过word embedding算法。这类算法把word转化到一个捕获word的很多语义的向量空间（e.g. king - man + woman = queen）
 
-![image](assets/2020-04-09-seq2seq_with_attention-f789c3b7.png)
+![image](https://github.com/ChaoWANG0511/ChaoWANG0511.github.io/blob/master/_posts/assets/2020-04-09-seq2seq_with_attention-f789c3b7.png)
 
 可用预训练的embeddings或在我们的数据集上训练出自己的embedding。Embedding向量一般尺寸200或300，以上可视化为尺寸4。
 
