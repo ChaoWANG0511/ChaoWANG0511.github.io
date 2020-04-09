@@ -11,9 +11,6 @@ tags:								#标签
 ---
 
 
-## Hey
-这是我的第一篇博客。
-
 > document：https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/
 
 ## seq2seq model
@@ -27,7 +24,7 @@ context是一个向量(an array of numbers)，encoder和decoder都是RNN。
 
 
 <div align=center>
-<img src="../assets/2020-04-09-seq2seqe9a89c9d.PNG" >
+<img src="assets/2020-04-09-seq2seq_with_attention-e9a89c9d.PNG" >
 </div>
 
 在搭建模型时，你可以设定context的尺寸，它就是encoder RNN的hidden units的个数。以上的context的可视化展示了一个尺寸为4的向量，实际应用中尺寸一般是256,512,1024。
@@ -75,7 +72,7 @@ c)	每个hidden state * 它自己的softmax分数，从而强调了有高分数�
 
 Decoder这边的每一时间步都做这个打分练习
 
-## 总结attention process
+## 总结 attention process
 
 1、	attention decoder RNN收到<END> token(令牌)的embedding，于是初始化一个decoder hidden state
 
