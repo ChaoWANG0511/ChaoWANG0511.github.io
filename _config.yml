@@ -6,6 +6,8 @@ email: chao.wang@student-cs.fr
 description: "Every failure is leading towards success."
 keyword: "Chao WANG, 汪超, Deep Learning"
 url: "http://ChaoWANG0511.github.io"          # your host, for absolute URL
+site_url: https://ChaoWANG0511.github.io/_posts/  # used for using local images in production
+
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/ChaoWANG0511/ChaoWANG0511.github.io.git" # you code repository
 
