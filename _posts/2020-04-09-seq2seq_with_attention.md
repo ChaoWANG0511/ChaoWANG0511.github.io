@@ -31,7 +31,7 @@ context是一个向量(an array of numbers)，encoder和decoder都是RNN。
 
 通过设计，一个RNN每个时间步取两个输入：一个input（encoder情况下是input sequence中的一个word）和一个hidden state。其中的word需要表示为一个向量，通过word embedding算法。这类算法把word转化到一个捕获word的很多语义的向量空间（e.g. king - man + woman = queen）
 
-![](../img/2020.png)
+![](assets/2020-04-09-seq2seq_with_attention-f789c3b7.png)
 
 可用预训练的embeddings或在我们的数据集上训练出自己的embedding。Embedding向量一般尺寸200或300，以上可视化为尺寸4。
 
