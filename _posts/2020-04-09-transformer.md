@@ -162,3 +162,60 @@ decoder的每个子层也是这样。合起来看a Transformer of 2 stacked enco
 ![](assets/2020-04-09-transformer-1dcb4887.png)
 
 # Decoder
+
+输入序列输入到encoder，最顶层的encoder的输出被转化成一套attention vectors K & V。它们将被每个decoder的encoder-decoder attention层使用，用于帮助focus on输入序列里的适当部分。
+
+![](assets/2020-04-09-transformer-ce198f6a.png)
+
+decoder的每一步输出输出序列（英语翻译句子）里的一个元素。
+
+重复，直到到达了一个特殊的符号，标志着decoder完成了它的输出。
+
+每一步的输出在下一时间步又被送进最底层的decoder。
+
+像在encoder里一样，也给decoder的输入做embedding，并加一个positional encoding以指明每个单词的位置。
+
+![](assets/2020-04-09-transformer-76bdac70.png)
+
+## self-attention
+decoder里的self-attention层和encoder里的稍微有不一样：只允许看输出序列里的更前面的位置，通过在softmax步之前，把未来的位置做mask (把它们设为-inf)
+
+## encoder-decoder attention
+Encoder-Decoder Attention层就像multiheaded self-attention层，除了它由它下面那层产生Query matrix，从encoder堆里直接拿Key & Value matrix。
+
+decoder输出了一个浮点数向量，怎么变成一个词？这是最后一层 linear layer + softmax layer 的工作。
+
+## linear
+linear层是一个简单的全连接NN，把decoders输出的那个向量投影到一个大很多的向量，叫logits vector。
+
+假设模型从训练集学习到了10000个英语单词（输出单词词典），则logits vector的维数是10000——每个元素对应一个单词的分数。
+
+## softmax
+把这些分数转化成概率（都正，且和为1）。概率最高的元素被选择，与之对应的单词即这个时间步的输出。
+
+![](assets/2020-04-09-transformer-c6a02b35.png)
+
+知道输出单词词典(6个单词)之后，就可以用相同长度的独热编码输出单词（比如am）:
+
+![](assets/2020-04-09-transformer-1e8374d4.png)
+
+# loss function
+
+在训练模型。比如把merci翻译成thanks。即向输入一个概率分布，指示到单词thanks。但是现在还没训练，还不可能实现。
+
+![](assets/2020-04-09-transformer-ce1fd154.png)
+
+怎样比较两个概率分布？相减。看cross-entropy 和 Kullback–Leibler divergence。
+
+更实际的：一句话VS一句话。比如 je suis étudiant 到 i am a student。想要模型连续地输出概率分布们 tq：
+
+- 每个概率分布由一个vocab_size宽度(本例中=6，实际上3000或10000)的向量表示
+- 输出的第一个概率分布给 i 对应的格子概率最高。输出的第二个概率分布给 am 对应的格子概率最高。直到输出的第五个概率分布给 end of sentence 对应的格子概率最高。
+
+每步的目标概率分布：
+![](assets/2020-04-09-transformer-947fc4c9.png)
+
+训练得到的每步的概率分布：
+![](assets/2020-04-09-transformer-def101d9.png)
+
+因为每步只输出一个，所以可以每步取概率最高的单词直接输出（greedy decoding），也可以每步取概率最高的两个单词（比如在第三步#3是I和a）,然后再跑两遍模型：都保留位置#1和#2，一遍假设输出的第一个位置是I，一遍假设输出的第一个位置是a，看哪个版本error更小。重复for保留位置#2和#3...这叫做beam search，beam_size=2（保留位置#1和#2），top_beams=2(取概率最高的两个单词)。这些超参可以实验决定。
